@@ -16,11 +16,14 @@ export class UserService {
     return user
   }
 
-  async signUpWithEmail(email: string): Promise<void> {
+  async signUpWithEmail(email: string, password: string): Promise<User> {
     const user: User | null = await this.userRepository.getByEmail(email);
 
     if (user) {
       throw new Error('This email is already registered');
     }
+
+    const createdUser = await this.userRepository.createUser(email, password);
+    return createdUser;
   }
 }

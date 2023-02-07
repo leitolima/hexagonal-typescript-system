@@ -1,8 +1,7 @@
 import { Request, Response } from "express";
-import { encryptPassword } from "../../utils/password";
+import { User } from "../../../domain";
 
 import { UserService } from "../../../application/users/user-service";
-import UserModel from "../../database/schemas/users-schema";
 
 export class UserController {
   constructor(
@@ -25,12 +24,7 @@ export class UserController {
   async signUpUser(req: Request, res: Response) {
     const { email, password } = req.body;
     try {
-      await this.userServiceInstance.signUpWithEmail(email);
-      const user = new UserModel({
-        emails: [email],
-        password: encryptPassword(password),
-      });
-      await user.save();
+      const user: User = await this.userServiceInstance.signUpWithEmail(email, password);
       const { _id, emails } = user;
 
       res.status(200).send({ data: { _id, emails } });
