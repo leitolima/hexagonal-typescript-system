@@ -18,7 +18,17 @@ export class ProductController {
     }
   }
 
-  async createProduct(req: Request, res: Response) {}
+  async createProduct(req: Request, res: Response) {
+    const { title, price, description } = req.body;
+    try {
+      const product = await this.productServiceInstance.createProduct(title, price, description);
+
+      res.status(200).send({ data: product });
+    } catch (error: any) {
+      const errorMessage = error.toString().replace("Error: ", "");
+      res.status(500).send({ message: errorMessage });
+    }
+  }
 
   async updateProduct(req: Request, res: Response) {}
 }

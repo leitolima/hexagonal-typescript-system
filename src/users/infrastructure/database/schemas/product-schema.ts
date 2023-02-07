@@ -8,10 +8,12 @@ const ProductSchema = new Schema({
   },
   title: {
     type: String,
+    default: '',
     require: true,
   },
   price: {
     type: Number,
+    default: 0,
     require: true,
   },
   description: {

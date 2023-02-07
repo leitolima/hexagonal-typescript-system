@@ -11,4 +11,10 @@ export class ProductService {
     }
     return product;
   }
+
+  async createProduct(title: string, price: number, description?: string): Promise<Product> {
+    const product: Product = await this.productRepository.createProduct(title, price, description);
+
+    return product;
+  }
 }
