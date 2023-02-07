@@ -12,6 +12,7 @@ function boostrap() {
 
   app.use(bodyParser.json());
   app.use("/users", userRouter);
+  app.use("/products", userRouter);
 
   const { port } = config.server;
 
