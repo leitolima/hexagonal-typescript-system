@@ -1,5 +1,6 @@
 import { User } from "../../domain";
 import { UserRepository } from "../../domain/users/user-repository";
+
 import UserModel from "../database/schemas/users-schema";
 
 export class InMemoryUserRepository implements UserRepository {
