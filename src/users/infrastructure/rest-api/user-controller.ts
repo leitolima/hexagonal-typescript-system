@@ -8,9 +8,9 @@ export class UserController {
   async loginUser(req: Request, res: Response) {
     const { email, password } = req.body;
     try {
-      await this.loginInstance.loginWithEmail(email, password);
+      const user = await this.loginInstance.loginWithEmail(email, password);
 
-      res.status(200).send({ message: "User Logged" });
+      res.status(200).send({ data: user });
     } catch (error: any) {
       const errorMessage = error.toString().replace("Error: ", "");
       res.status(500).send({ message: errorMessage });
