@@ -1,5 +1,5 @@
-import { User } from "../domain/user";
-import { UserRepository } from "../domain/user-repository";
+import { User } from "../../domain/user";
+import { UserRepository } from "../../domain/user-repository";
 
 export class SignUp {
   constructor(private readonly userRepository: UserRepository) {}

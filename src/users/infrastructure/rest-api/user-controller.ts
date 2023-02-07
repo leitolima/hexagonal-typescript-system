@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
 import { encryptPassword } from "../utils/password";
 
-import { Login } from "../../application/login";
-import { SignUp } from "../../application/signup";
+import { Login } from "../../application/users/login";
+import { SignUp } from "../../application/users/signup";
 import UserModel from "../database/schemas/users-schema";
 
 export class UserController {
