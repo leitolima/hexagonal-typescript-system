@@ -4,6 +4,7 @@ import bodyParser from "body-parser";
 import express from "express";
 
 import { config } from "./shared/infrastructure/config";
+import { connectDatabase } from "./users/infrastructure/database";
 import { userRouter } from "./users/infrastructure/rest-api/user-router";
 
 function boostrap() {
@@ -16,6 +17,7 @@ function boostrap() {
 
   app.listen(port, () => {
     console.log(`[APP] - Starting application on port ${port}`);
+    connectDatabase()
   });
 }
 

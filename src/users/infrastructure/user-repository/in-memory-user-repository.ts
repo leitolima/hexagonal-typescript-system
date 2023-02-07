@@ -1,15 +1,21 @@
 import { User } from "../../domain/user";
 import { UserRepository } from "../../domain/user-repository";
-import { USERS } from "./users";
+import UserModel from "../database/schemas/users-schema";
 
 export class InMemoryUserRepository implements UserRepository {
   async getByEmail(email: string): Promise<User | null> {
-    const user: User | undefined = USERS.find((user) => user.emails.includes(email));
-
-    if (!user) {
+    const userRes = await UserModel.aggregate([
+      {
+        $match: {
+          emails: email,
+        },
+      },
+    ]);
+    if (!userRes || !userRes.length) {
       return null;
     }
+    const user = userRes[0];
 
-    return user;
+    return new User(user.id, user.emails, user.password);
   }
 }
