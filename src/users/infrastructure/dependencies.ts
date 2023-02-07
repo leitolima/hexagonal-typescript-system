@@ -1,5 +1,4 @@
-import { Login } from "../application/users/login";
-import { SignUp } from "../application/users/signup";
+import { UserService } from "../application/users/user-service";
 import { ProductService } from "../application/products/product-service";
 
 import { UserController } from "./rest-api/users/user-controller";
@@ -10,13 +9,12 @@ import { InMemoryProductRepository } from "./repository/product-repository/in-me
 
 // Users
 const userRepository = new InMemoryUserRepository();
-const loginInstance = new Login(userRepository);
-const signUpInstance = new SignUp(userRepository);
+const userServiceInstance = new UserService(userRepository);
 
-export const userController = new UserController(loginInstance, signUpInstance);
+export const userController = new UserController(userServiceInstance);
 
 // Products
 const productRepository = new InMemoryProductRepository();
-const productInstance = new ProductService(productRepository);
+const productServiceInstance = new ProductService(productRepository);
 
-export const productController = new ProductController(productInstance);
+export const productController = new ProductController(productServiceInstance);

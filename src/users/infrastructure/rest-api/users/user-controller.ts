@@ -1,20 +1,18 @@
 import { Request, Response } from "express";
 import { encryptPassword } from "../../utils/password";
 
-import { Login } from "../../../application/users/login";
-import { SignUp } from "../../../application/users/signup";
+import { UserService } from "../../../application/users/user-service";
 import UserModel from "../../database/schemas/users-schema";
 
 export class UserController {
   constructor(
-    private readonly loginInstance: Login,
-    private readonly signUpInstance: SignUp
+    private readonly userServiceInstance: UserService,
   ) {}
 
   async loginUser(req: Request, res: Response) {
     const { email, password } = req.body;
     try {
-      const user = await this.loginInstance.loginWithEmail(email, password);
+      const user = await this.userServiceInstance.loginWithEmail(email, password);
       const { _id, emails } = user;
 
       res.status(200).send({ data: { _id, emails } });
@@ -27,7 +25,7 @@ export class UserController {
   async signUpUser(req: Request, res: Response) {
     const { email, password } = req.body;
     try {
-      await this.signUpInstance.signUpWithEmail(email);
+      await this.userServiceInstance.signUpWithEmail(email);
       const user = new UserModel({
         emails: [email],
         password: encryptPassword(password),

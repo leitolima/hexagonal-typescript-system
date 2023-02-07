@@ -3,13 +3,13 @@ import { ProductService } from "../../../application/products/product-service";
 
 export class ProductController {
   constructor(
-    readonly productInstance: ProductService
+    readonly productServiceInstance: ProductService
   ) {}
 
   async getProduct(req: Request, res: Response) {
     const { id } = req.params;
     try {
-      const product = await this.productInstance.getProduct(id);
+      const product = await this.productServiceInstance.getProduct(id);
   
       res.status(200).send({ data: product });
     } catch (error: any) {
