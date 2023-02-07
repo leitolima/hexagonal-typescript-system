@@ -14,7 +14,11 @@ export class InMemoryProductRepository implements ProductRepository {
     return new Product(product._id, product.title, product.price, product.description);
   }
 
-  // async getByTitle(title: string): Promise<Product[] | null> {
-    
-  // }
+  async getByTitle(title: string): Promise<Product[]> {
+    const products: Product[] = await ProductSchema.find({
+      title: new RegExp(`/${title}/`)
+    })
+
+    return products;
+  }
 }
