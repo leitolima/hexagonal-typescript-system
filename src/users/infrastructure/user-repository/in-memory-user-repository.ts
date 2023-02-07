@@ -16,6 +16,6 @@ export class InMemoryUserRepository implements UserRepository {
     }
     const user = userRes[0];
 
-    return new User(user.id, user.emails, user.password);
+    return new User(user._id, user.emails, user.password);
   }
 }

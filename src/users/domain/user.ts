@@ -2,7 +2,7 @@ const bcrypt = require("bcryptjs");
 
 export class User {
   constructor(
-    readonly id: string,
+    readonly _id: string,
     readonly emails: string[],
     private password: string
   ) {}
