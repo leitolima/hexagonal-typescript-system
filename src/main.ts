@@ -5,7 +5,7 @@ import express from "express";
 
 import { config } from "./shared/infrastructure/config";
 import { connectDatabase } from "./users/infrastructure/database";
-import { userRouter } from "./users/infrastructure/rest-api/user-router";
+import { userRouter } from "./users/infrastructure/rest-api/users/user-router";
 
 function boostrap() {
   const app = express();

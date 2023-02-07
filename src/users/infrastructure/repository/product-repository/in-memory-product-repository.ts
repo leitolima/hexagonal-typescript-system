@@ -1,7 +1,7 @@
-import { Product } from "../../domain/products/product";
-import { ProductRepository } from "../../domain/products/product-repository";
+import { Product } from "../../../domain/products/product";
+import { ProductRepository } from "../../../domain/products/product-repository";
 
-import ProductSchema from "../database/schemas/product-schema";
+import ProductSchema from "../../database/schemas/product-schema";
 
 export class InMemoryProductRepository implements ProductRepository {
   async getById(id: string): Promise<Product | null> {

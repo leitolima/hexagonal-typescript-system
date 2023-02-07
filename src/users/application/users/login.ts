@@ -1,4 +1,4 @@
-import { User } from "../../domain/user";
+import { User } from "../../domain";
 import { UserRepository } from "../../domain/users/user-repository";
 
 export class Login {

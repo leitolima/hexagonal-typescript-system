@@ -1,7 +1,7 @@
-import { User } from "../../domain";
-import { UserRepository } from "../../domain/users/user-repository";
+import { User } from "../../../domain";
+import { UserRepository } from "../../../domain/users/user-repository";
 
-import UserModel from "../database/schemas/users-schema";
+import UserModel from "../../database/schemas/users-schema";
 
 export class InMemoryUserRepository implements UserRepository {
   async getByEmail(email: string): Promise<User | null> {
