@@ -1,13 +1,19 @@
-// import { Request, Response } from "express";
+import { Request, Response } from "express";
 
-// import { WelcomeMessageSender } from "../../application/welcome-message-sender";
+import { Login } from "../../application/login";
 
-// export class UserController {
-//   constructor(private readonly welcomeMessageSender: WelcomeMessageSender) {}
+export class UserController {
+  constructor(private readonly loginInstance: Login) {}
 
-//   async sendWelcomeMessage(req: Request, res: Response) {
-//     const { id: userId } = req.params;
-//     await this.welcomeMessageSender.sendToUser(userId);
-//     res.status(200).send();
-//   }
-// }
+  async loginUser(req: Request, res: Response) {
+    const { email, password } = req.body;
+    try {
+      await this.loginInstance.loginWithEmail(email, password);
+
+      res.status(200).send({ message: "User Logged" });
+    } catch (error: any) {
+      const errorMessage = error.toString().replace("Error: ", "");
+      res.status(500).send({ message: errorMessage });
+    }
+  }
+}

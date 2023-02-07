@@ -1,12 +1,12 @@
-// import express from "express";
+import express from "express";
 
-// import { userController } from "../dependencies";
+import { userController } from "../dependencies";
 
-// const userRouter = express.Router();
+const userRouter = express.Router();
 
-// userRouter.post(
-//   "/:id/welcome",
-//   userController.sendWelcomeMessage.bind(userController)
-// );
+userRouter.post(
+  "/login",
+  userController.loginUser.bind(userController)
+);
 
-// export { userRouter };
+export { userRouter };
