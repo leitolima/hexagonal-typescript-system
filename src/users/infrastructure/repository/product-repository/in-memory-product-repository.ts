@@ -16,14 +16,22 @@ export class InMemoryProductRepository implements ProductRepository {
     return new Product(product._id, product._user, product.title, product.price, product.description);
   }
 
-  // Function used for searching
-  async getByTitle(title: string): Promise<Product[]> {
-    const products: Product[] = await ProductModel.find({
-      title: new RegExp(`/${title}/`)
-    })
-
-    return products;
+  async getProducts(page: number, perPage: number): Promise<Product[]> {
+    const products = await ProductModel.aggregate([
+      { $skip: perPage * (page - 1) },
+      { $limit: perPage },
+    ])
+    return products
   }
+
+  // Function used for searching
+  // async getByTitle(title: string): Promise<Product[]> {
+  //   const products: Product[] = await ProductModel.find({
+  //     title: new RegExp(`/${title}/`)
+  //   })
+
+  //   return products;
+  // }
 
   async createProduct(_user: Types.ObjectId, title: string, price: number, description?: string | undefined): Promise<Product> {
     const product = new ProductModel({

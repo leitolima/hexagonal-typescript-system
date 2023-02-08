@@ -27,6 +27,21 @@ export class ProductController {
     }
   }
 
+  async getProducts(req: Request, res: Response) {
+    const { page = 1, perPage = 10 } = req.query;
+    try {
+      if (page < 1 || perPage < 1) {
+        throw new Error('Insert valid page and data per page values');
+      }
+      const product = await this.productServiceInstance.getProducts(Number(page), Number(perPage));
+  
+      res.status(200).send({ data: product });
+    } catch (error: any) {
+      const errorMessage = error.toString().replace("Error: ", "");
+      res.status(500).send({ message: errorMessage });
+    }
+  }
+
   async createProduct(req: Request, res: Response) {
     const { title, price, description } = req.body;
     try {

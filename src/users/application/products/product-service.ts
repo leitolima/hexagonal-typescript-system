@@ -14,6 +14,11 @@ export class ProductService {
     return product;
   }
 
+  async getProducts(page: number, perPage: number): Promise<Product[]> {
+    const products = await this.productRepository.getProducts(page, perPage);
+    return products;
+  }
+
   async createProduct(_user: Types.ObjectId, title: string, price: number, description?: string): Promise<Product> {
     const product: Product = await this.productRepository.createProduct(_user, title, price, description);
 

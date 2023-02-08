@@ -21,5 +21,9 @@ const ProductSchema = new Schema({
     require: false,
   },
 })
+ProductSchema.index({ title: 'text' })
 
-export default model('products', ProductSchema);
+const productModel = model('products', ProductSchema);
+// productModel.createIndexes();
+
+export default productModel;
