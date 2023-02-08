@@ -7,4 +7,5 @@ export interface ProductRepository {
 
   // Mutations
   createProduct(title: string, price: number, description?: string): Promise<Product>;
+  updateProduct(id: string, title: string, price: number, description?: string): Promise<Product>;
 }

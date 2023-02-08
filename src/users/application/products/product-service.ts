@@ -17,4 +17,10 @@ export class ProductService {
 
     return product;
   }
+
+  async updateProduct(id: string, title: string, price: number, description?: string): Promise<Product> {
+    const product: Product = await this.productRepository.updateProduct(id, title, price, description);
+
+    return product;
+  }
 }

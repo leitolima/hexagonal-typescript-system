@@ -1,3 +1,5 @@
+import { Types } from "mongoose";
+
 import { Product } from "../../../domain/products/product";
 import { ProductRepository } from "../../../domain/products/product-repository";
 
@@ -29,6 +31,20 @@ export class InMemoryProductRepository implements ProductRepository {
       price,
       description,
     })
+    await product.save();
+
+    return new Product(product._id, product.title, product.price, product.description);
+  }
+
+  async updateProduct(id: string, title: string, price: number, description?: string | undefined): Promise<Product> {
+    const product = await ProductModel.findOneAndUpdate({
+      _id: new Types.ObjectId(id),
+    }, {
+      $set: { title, price, description }
+    }, {
+      returnDocument: 'after'
+    })
+    if (!product) throw new Error('There was an error. Please, try again later');
     await product.save();
 
     return new Product(product._id, product.title, product.price, product.description);

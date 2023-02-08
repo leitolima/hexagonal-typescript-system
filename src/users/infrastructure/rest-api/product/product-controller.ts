@@ -33,5 +33,18 @@ export class ProductController {
     }
   }
 
-  async updateProduct(req: Request, res: Response) {}
+  async updateProduct(req: Request, res: Response) {
+    const { id, title, price, description } = req.body;
+    try {
+      if (!id) {
+        throw new Error('You must send a product ID');
+      }
+      const product: Product = await this.productServiceInstance.updateProduct(id, title, price, description);
+
+      res.status(200).send({ data: product });
+    } catch (error: any) {
+      const errorMessage = error.toString().replace("Error: ", "");
+      res.status(500).send({ message: errorMessage });
+    }
+  }
 }
