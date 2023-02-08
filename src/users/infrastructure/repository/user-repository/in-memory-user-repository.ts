@@ -1,10 +1,21 @@
+import { Types } from "mongoose";
+import { Request } from "express";
+
 import { User } from "../../../domain";
 import { UserRepository } from "../../../domain/users/user-repository";
 
+import { verifySessionToken } from "../../utils/token";
 import { encryptPassword } from "../../utils/password";
 import UserModel from "../../database/schemas/users-schema";
 
 export class InMemoryUserRepository implements UserRepository {
+  async validateToken(req: Request): Promise<Types.ObjectId> {
+    const headers = req.headers['authorization'];
+    if (!headers) throw new Error('You do not have access to this functionality');
+    const _id = verifySessionToken(headers);
+    return _id;
+  }
+  
   async getByEmail(email: string): Promise<User | null> {
     const userRes = await UserModel.aggregate([
       {
