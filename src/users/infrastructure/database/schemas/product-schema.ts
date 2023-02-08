@@ -4,7 +4,6 @@ const ProductSchema = new Schema({
   _user: {
     type: Schema.Types.ObjectId,
     ref: 'users',
-    default: '',
     require: true,
   },
   title: {

@@ -9,5 +9,5 @@ export interface ProductRepository {
 
   // Mutations
   createProduct(_user: Types.ObjectId, title: string, price: number, description?: string): Promise<Product>;
-  updateProduct(id: string, title: string, price: number, description?: string): Promise<Product>;
+  updateProduct(id: string, _user: Types.ObjectId, title: string, price: number, description?: string): Promise<Product>;
 }

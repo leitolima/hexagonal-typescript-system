@@ -49,7 +49,8 @@ export class ProductController {
       if (!id) {
         throw new Error('You must insert a product ID');
       }
-      const product: Product = await this.productServiceInstance.updateProduct(id, title, price, description);
+      const _user: Types.ObjectId = this.userServiceInstance.validateUserAuthorization(req);
+      const product: Product = await this.productServiceInstance.updateProduct(id, _user, title, price, description);
 
       res.status(200).send({ data: product });
     } catch (error: any) {

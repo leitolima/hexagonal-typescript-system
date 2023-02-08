@@ -16,5 +16,5 @@ export const verifySessionToken = (token: string) => {
   if (!decoded) throw new Error('No decoded');
   const { _id } = decoded;
   if (!_id) throw new Error('Invalid token');
-  return _id;
+  return _id.trim();
 }

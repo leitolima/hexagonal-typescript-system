@@ -37,9 +37,10 @@ export class InMemoryProductRepository implements ProductRepository {
     return new Product(product._id, _user, title, price, description);
   }
 
-  async updateProduct(id: string, title: string, price: number, description?: string | undefined): Promise<Product> {
+  async updateProduct(id: string, _user: Types.ObjectId, title: string, price: number, description?: string | undefined): Promise<Product> {
     const product = await ProductModel.findOneAndUpdate({
       _id: new Types.ObjectId(id),
+      _user,
     }, {
       $set: { title, price, description }
     }, {
@@ -48,6 +49,6 @@ export class InMemoryProductRepository implements ProductRepository {
     if (!product) throw new Error('There was an error. Please, try again later');
     await product.save();
 
-    return new Product(product._id, product._user, title, price, description);
+    return new Product(product._id, _user, title, price, description);
   }
 }
