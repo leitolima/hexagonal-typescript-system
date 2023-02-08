@@ -9,7 +9,7 @@ import { encryptPassword } from "../../utils/password";
 import UserModel from "../../database/schemas/users-schema";
 
 export class InMemoryUserRepository implements UserRepository {
-  async validateToken(req: Request): Promise<Types.ObjectId> {
+  validateToken(req: Request): Types.ObjectId {
     const headers = req.headers['authorization'];
     if (!headers) throw new Error('You do not have access to this functionality');
     const _id = verifySessionToken(headers);

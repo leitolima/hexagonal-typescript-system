@@ -17,4 +17,4 @@ export const userController = new UserController(userServiceInstance);
 const productRepository = new InMemoryProductRepository();
 const productServiceInstance = new ProductService(productRepository);
 
-export const productController = new ProductController(productServiceInstance);
+export const productController = new ProductController(userServiceInstance, productServiceInstance);

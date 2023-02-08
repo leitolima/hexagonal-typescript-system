@@ -5,7 +5,7 @@ import { User } from "./user";
 
 export interface UserRepository {
   // Login validations
-  validateToken(req: Request): Promise<Types.ObjectId>;
+  validateToken(req: Request): Types.ObjectId;
 
   // Queries
   getByEmail(email: string): Promise<User | null>;

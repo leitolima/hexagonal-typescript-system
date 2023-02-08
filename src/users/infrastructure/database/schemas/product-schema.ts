@@ -1,9 +1,10 @@
 import { Schema, model } from 'mongoose';
 
 const ProductSchema = new Schema({
-  user: {
+  _user: {
     type: Schema.Types.ObjectId,
     ref: 'users',
+    default: '',
     require: true,
   },
   title: {

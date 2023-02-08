@@ -1,11 +1,14 @@
+import { Types } from "mongoose";
 import { Request, Response } from "express";
 
 import { Product } from "../../../domain";
 
+import { UserService } from "../../../application/users/user-service";
 import { ProductService } from "../../../application/products/product-service";
 
 export class ProductController {
   constructor(
+    readonly userServiceInstance: UserService,
     readonly productServiceInstance: ProductService
   ) {}
 
@@ -30,7 +33,8 @@ export class ProductController {
       if (!title || !price) {
         throw new Error('You must insert Title and Price as required values');
       }
-      const product: Product = await this.productServiceInstance.createProduct(title, price, description);
+      const _user: Types.ObjectId = this.userServiceInstance.validateUserAuthorization(req);
+      const product: Product = await this.productServiceInstance.createProduct(_user, title, price, description);
 
       res.status(200).send({ data: product });
     } catch (error: any) {

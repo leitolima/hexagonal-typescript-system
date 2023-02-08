@@ -13,7 +13,7 @@ export class InMemoryProductRepository implements ProductRepository {
       return null;
     }
     
-    return new Product(product._id, product.title, product.price, product.description);
+    return new Product(product._id, product._user, product.title, product.price, product.description);
   }
 
   // Function used for searching
@@ -25,15 +25,16 @@ export class InMemoryProductRepository implements ProductRepository {
     return products;
   }
 
-  async createProduct(title: string, price: number, description?: string | undefined): Promise<Product> {
+  async createProduct(_user: Types.ObjectId, title: string, price: number, description?: string | undefined): Promise<Product> {
     const product = new ProductModel({
+      _user,
       title,
       price,
       description,
     })
     await product.save();
 
-    return new Product(product._id, product.title, product.price, product.description);
+    return new Product(product._id, _user, title, price, description);
   }
 
   async updateProduct(id: string, title: string, price: number, description?: string | undefined): Promise<Product> {
@@ -47,6 +48,6 @@ export class InMemoryProductRepository implements ProductRepository {
     if (!product) throw new Error('There was an error. Please, try again later');
     await product.save();
 
-    return new Product(product._id, product.title, product.price, product.description);
+    return new Product(product._id, product._user, title, price, description);
   }
 }

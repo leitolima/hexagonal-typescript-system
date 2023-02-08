@@ -1,7 +1,15 @@
+import { Types } from "mongoose";
+import { Request } from 'express';
+
 import { User, UserRepository } from "../../domain";
 
 export class UserService {
   constructor(private readonly userRepository: UserRepository) {}
+
+  validateUserAuthorization(req: Request): Types.ObjectId {
+    const _id = this.userRepository.validateToken(req);
+    return _id;
+  }
 
   async loginWithEmail(email: string, password: string): Promise<User> {
     const user: User | null = await this.userRepository.getByEmail(email);

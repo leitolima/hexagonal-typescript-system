@@ -1,3 +1,5 @@
+import { Types } from "mongoose";
+
 import { Product } from "./product";
 
 export interface ProductRepository {
@@ -6,6 +8,6 @@ export interface ProductRepository {
   getByTitle(title: string): Promise<Product[] | null>;
 
   // Mutations
-  createProduct(title: string, price: number, description?: string): Promise<Product>;
+  createProduct(_user: Types.ObjectId, title: string, price: number, description?: string): Promise<Product>;
   updateProduct(id: string, title: string, price: number, description?: string): Promise<Product>;
 }
