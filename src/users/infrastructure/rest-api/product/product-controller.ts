@@ -12,6 +12,9 @@ export class ProductController {
   async getProduct(req: Request, res: Response) {
     const { id } = req.params;
     try {
+      if (!id) {
+        throw new Error('You must insert a product ID');
+      }
       const product = await this.productServiceInstance.getProduct(id);
   
       res.status(200).send({ data: product });
@@ -24,6 +27,9 @@ export class ProductController {
   async createProduct(req: Request, res: Response) {
     const { title, price, description } = req.body;
     try {
+      if (!title || !price) {
+        throw new Error('You must insert Title and Price as required values');
+      }
       const product: Product = await this.productServiceInstance.createProduct(title, price, description);
 
       res.status(200).send({ data: product });
@@ -37,7 +43,7 @@ export class ProductController {
     const { id, title, price, description } = req.body;
     try {
       if (!id) {
-        throw new Error('You must send a product ID');
+        throw new Error('You must insert a product ID');
       }
       const product: Product = await this.productServiceInstance.updateProduct(id, title, price, description);
 
