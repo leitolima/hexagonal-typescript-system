@@ -1,4 +1,7 @@
 import { Request, Response } from "express";
+
+import { Product } from "../../../domain";
+
 import { ProductService } from "../../../application/products/product-service";
 
 export class ProductController {
@@ -21,7 +24,7 @@ export class ProductController {
   async createProduct(req: Request, res: Response) {
     const { title, price, description } = req.body;
     try {
-      const product = await this.productServiceInstance.createProduct(title, price, description);
+      const product: Product = await this.productServiceInstance.createProduct(title, price, description);
 
       res.status(200).send({ data: product });
     } catch (error: any) {
